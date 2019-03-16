@@ -1,0 +1,50 @@
+.viewer{
+    position: absolute;
+    left: 25%;
+    background-color: white;
+}
+
+.imageModal{
+    width:50vw;
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev, .next {
+    cursor: pointer;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -50px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.close {
+    color: black;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 35px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #999;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .flexRow{
+      display:flex;
+      width:160px;
+  }
