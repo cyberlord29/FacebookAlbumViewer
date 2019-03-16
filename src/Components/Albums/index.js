@@ -116,7 +116,7 @@ class Albums extends Component {
     return (
       <div className='albums'>
             <ResponsiveGridLayout 
-        className='layout' rowHeight={80} width={1500}
+        className='layout' rowHeight={80} width={1800}
         breakpoints={{lg: 1600, md: 1200, sm: 768, xs: 480, xxs: 0}}
         cols={{lg: 12, md: 9, sm: 2 ,  xs: 1, xxs: 1}}
         isDraggable={ false }
@@ -163,8 +163,8 @@ class Albums extends Component {
     return (
       <div className='albumPage'>
         <div className='control'> 
-          {facebook.status!=='connected' && <Button size='lg' onClick={this.login}>Login</Button>}
-          {facebook.status==='connected' && <Button size='lg' onClick={this.logout}>Logout</Button>}
+          {facebook.status!=='connected' && <Button style={{fontSize:'2em'}}  onClick={this.login}>Login</Button>}
+          {facebook.status==='connected' && <Button style={{fontSize:'2em'}} onClick={this.logout}>Logout</Button>}
         </div>
         {facebook.status==='connected' &&
           <div className='profile' style={{display:'flex',flexDirection:'column',width:'160px'}}>
