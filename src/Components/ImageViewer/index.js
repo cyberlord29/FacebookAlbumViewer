@@ -6,11 +6,7 @@ import '../../index.css'
 import {
   setParams,
 } from '../../actions/facebook-actions'
-import {
-  Card,
-  Button
-} from 'reactstrap'
-import cx from 'classnames'
+
 import './index.css'
 
 class Viewer extends Component {
@@ -30,7 +26,6 @@ class Viewer extends Component {
   }
 
   switchImage = (i) => {
-      console.log('ERR',i)
     const {
         facebook
       } = this.props
@@ -39,7 +34,6 @@ class Viewer extends Component {
   }
   
   close = () => {
-    console.log('CLOSE')
     this.props.setParams({id:'showViewer' , value:false})
   }
 
@@ -53,14 +47,13 @@ class Viewer extends Component {
       <div className='viewer'>
         <span class="close cursor" onClick={()=>this.close()}>&times;</span>
 
-      <a className='prev' onClick={()=>this.switchImage(facebook.currentImage-1)}>&#10094;</a>
+      {facebook.currentImage>0 && <a className='prev' onClick={()=>this.switchImage(facebook.currentImage-1)}>&#10094;</a>}
       <img
         className='imageModal'
         src={src}
         alt=''
         />
-      <a className='next' onClick={()=>this.switchImage(facebook.currentImage+1)}>&#10095;
-    </a>
+     { facebook.currentImage!==facebook.albumPhotos.length-1 && <a className='next' onClick={()=>this.switchImage(facebook.currentImage+1)}>&#10095;</a>}
 
       </div>
     )

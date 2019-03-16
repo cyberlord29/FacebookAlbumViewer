@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import '../../index.css'
-
+import {Responsive , WidthProvider } from 'react-grid-layout'
 import {
   setParams,
 } from '../../actions/facebook-actions'
@@ -13,9 +13,10 @@ import {
 import cx from 'classnames'
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+const ResponsiveGridLayout = WidthProvider(Responsive);
 
 
-class Licenses extends Component {
+class Albums extends Component {
   constructor(props){
     super(props)
     this.state = {
@@ -49,11 +50,9 @@ class Licenses extends Component {
     this.FB = window.FB;
     this.FB.getLoginStatus((response) => {
       this.FB.api('/me?fields=albums.limit(100){name,count,cover_photo{picture}}', response => {
-        console.log('albums',response);
         this.props.setParams({id:'albums',value:response.albums.data})
       });
       this.FB.api('/me', 'GET', {fields: 'first_name,last_name,name,id,picture.width(150).height(150)'}, response => {
-        console.log(response);
         this.props.setParams({id:'name',value:response.name})
         this.props.setParams({id:'profilePic',value:response.picture.data.url})
 
@@ -66,7 +65,6 @@ class Licenses extends Component {
 
   isValid = () => {
     var a =Object.keys(this.props.licMan.license).filter((a)=>{return this.props.licMan.license[a]===''}).length === 0
-    // console.log( Object.keys(this.props.licMan.license).filter((a)=>{return this.props.licMan.license[a]===''}))
     return a 
   }
 
@@ -74,12 +72,10 @@ class Licenses extends Component {
     this.FB = window.FB;
     this.FB.login((response) => {
       if (response.authResponse) {
-      console.log('Welcome!  Fetching your information.... ',response);
         this.props.setParams({id:'auth' , value:response.authResponse})
         this.props.setParams({id:'status' , value:response.status})
         this.getPage1()
       } else {
-      console.log('User cancelled login or did not fully authorize.');
       }
     },{scope: 'public_profile,email,user_photos',return_scopes:"true"}); 
    
@@ -119,11 +115,19 @@ class Licenses extends Component {
     } = this.props
     return (
       <div className='albums'>
-    {facebook.albums.map(album => {
-        console.log(album)
+            <ResponsiveGridLayout 
+        className='layout' rowHeight={80} width={1500}
+        breakpoints={{lg: 1600, md: 1200, sm: 768, xs: 480, xxs: 0}}
+        cols={{lg: 12, md: 9, sm: 2 ,  xs: 1, xxs: 1}}
+        isDraggable={ false }
+        style={{background:'#f7f7f7', marginBottom: '10px'}}
+    >
+    {facebook.albums.map((album,i) => {
           return (
             album.cover_photo && 
-            <Card className={cx('coverCard')} itemRef={album.id} >
+            <div key={i} style={{padding:'2px'}} data-grid={{x: i%9, y: 0, w: 1, h: 2, static: false}}>
+
+            <Card className={cx('coverCard')} >
               {
                   <div>
                     <div className='info'>
@@ -141,10 +145,12 @@ class Licenses extends Component {
     
               }
             </Card>
+            </div>
 
           )
         })
     }
+    </ResponsiveGridLayout>
       </div>
     )
   }
@@ -156,20 +162,23 @@ class Licenses extends Component {
     } = this.props
     return (
       <div className='albumPage'>
-      <div className='flexrow'>
-        <Card><img src={facebook.profilePic}></img></Card>
         <div className='control'> 
           {facebook.status!=='connected' && <Button size='lg' onClick={this.login}>Login</Button>}
           {facebook.status==='connected' && <Button size='lg' onClick={this.logout}>Logout</Button>}
         </div>
-      </div>
+        {facebook.status==='connected' &&
+          <div className='profile' style={{display:'flex',flexDirection:'column',width:'160px'}}>
+          <img src={facebook.profilePic} alt=''></img>
+          <a className = 'name' style={{fontSize:'14px'}}>{facebook.name}</a>
+          </div>
+        }
         {facebook.status==='connected' && this.renderCovers()}
       </div>
     )
   }
 }
 
-Licenses.propTypes = {
+Albums.propTypes = {
   setParams: PropTypes.func,
 }
 
@@ -184,4 +193,4 @@ export default connect(
   {
     setParams,
   }
-)(Licenses)
+)(Albums)

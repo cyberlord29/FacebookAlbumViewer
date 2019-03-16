@@ -44,7 +44,21 @@
     cursor: pointer;
   }
 
-  .flexRow{
-      display:flex;
+  .flexrow{
+      display:column;
       width:160px;
+  }
+
+
+  .profile{
+      border:1px solid black;
+      border-radius: 4px;
+      margin-bottom: 20px;
+  }
+
+  .name{
+      padding:5px;
+  }
+  .header{
+      background-color:#262626
   }

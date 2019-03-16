@@ -20,8 +20,6 @@ class Photos extends Component {
     super(props)
     this.state = {
       showViewer:false,
-      selectedRow:[],
-      auth:''
     }
     this.FB={}
   }
@@ -47,18 +45,13 @@ class Photos extends Component {
             photo.pictureBig = photo.images[0].source;
             delete photo.images; 
           });
-          console.log(response)
           this.props.setParams({id:'albumPhotos',value:response.photos.data})
       });
       
     }) 
   }
 
-  isValid = () => {
-    var a =Object.keys(this.props.licMan.license).filter((a)=>{return this.props.licMan.license[a]===''}).length === 0
-    // console.log( Object.keys(this.props.licMan.license).filter((a)=>{return this.props.licMan.license[a]===''}))
-    return a 
-  }
+
 
   login = () => {
     this.FB = window.FB;

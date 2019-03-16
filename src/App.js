@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import './index.css'
 import {
@@ -7,10 +6,8 @@ import {
 } from 'react-bootstrap'
 import {
 } from './actions/facebook-actions'
-import cx from 'classnames'
-import AppNavigation  from './Components/AppNavigation'
-import Licences from './Components/Licenses'
-import { HeaderWrapper, AppContainer, FlexBox, Body, Title } from "./containers";
+import Albums from './Components/Albums'
+import { HeaderWrapper, AppContainer, Body } from "./containers";
 import Photos from './Components/Photos'
 
 class App extends Component {
@@ -32,11 +29,11 @@ class App extends Component {
     return (
       <HeaderWrapper>
         <PageHeader className='header'>
-          <div style={{fontFamily:'Agency FB', fontSize:'16px' ,color:'grey',display:'inline',letterSpacing:'1px'}}>CONSOLE</div>
+          <div style={{fontFamily:'sans-serif', fontSize:'16px' ,color:'grey',display:'inline',letterSpacing:'1px'}}>Facebook SDK</div>
         </PageHeader>
         <AppContainer>
           <Body>
-           {facebook.page==='albums' && <Licences/>}
+           {facebook.page==='albums' && <Albums/>}
            {facebook.page==='photos' && <Photos/>}
           </Body>
         </AppContainer>

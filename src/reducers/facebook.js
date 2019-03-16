@@ -1,9 +1,7 @@
 import {
     SET_PARAM, 
-    GET_LICENSES_SUCCESS,
     SET_NAV,
-    GET_PRODUCTS_SUCCESS,
-    SET_PRODUCT_PARAMS
+
 } from '../actions/facebook-actions'
 
 const initialState = {
@@ -15,7 +13,7 @@ const initialState = {
     showViewer:false,
 }
 
-const lisenceManager = (state = initialState, action) => {
+const facebook = (state = initialState, action) => {
     switch(action.type){
         case SET_NAV:
         return {
@@ -32,4 +30,4 @@ const lisenceManager = (state = initialState, action) => {
     }
 }
 
-export default lisenceManager
+export default facebook
