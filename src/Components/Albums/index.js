@@ -116,24 +116,20 @@ class Albums extends Component {
     return (
       <div className='albums'>
             <ResponsiveGridLayout 
-        className='layout' rowHeight={80} width={1800}
+        className='layout' rowHeight={80} width={1500}
         breakpoints={{lg: 1600, md: 1200, sm: 768, xs: 480, xxs: 0}}
         cols={{lg: 12, md: 9, sm: 2 ,  xs: 1, xxs: 1}}
         isDraggable={ false }
         style={{background:'#f7f7f7', marginBottom: '10px'}}
     >
     {facebook.albums.map((album,i) => {
-          return (
-            album.cover_photo && 
-            <div key={i} style={{padding:'2px'}} data-grid={{x: i%9, y: 0, w: 1, h: 2, static: false}}>
 
+          return (
+            <div key={i}  data-grid={{x: i%9, y: 0, w: 1, h: 2, static: false}}>
             <Card className={cx('coverCard')} >
-              {
-                  <div>
-                    <div className='info'>
-                      <div>{album.name}</div>
-                      <div>{album.count} pictures</div>
-                    </div>
+
+              {  album.cover_photo && 
+
                     <img
                       id={album.id}
                       onClick={(e)=>this.nextPage(e)}
@@ -141,10 +137,14 @@ class Albums extends Component {
                       src={album.cover_photo.picture}
                       alt=''
                     />
-                  </div>
     
               }
+                          <div className='info'>
+                      <div>{album.name}</div>
+                      <div>{album.count} pictures</div>
+                    </div>
             </Card>
+            
             </div>
 
           )
